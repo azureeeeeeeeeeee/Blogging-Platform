@@ -41,12 +41,12 @@
       <li>
         <a class="justify-between"> Profile </a>
       </li>
-      <li><a>Logout</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
     </ul>
     {% else %}
-    <button class="btn btn-neutral">
-      <a href="{% url 'login' %}">LOGIN</a>
-    </button>
+    <a href="{% url 'login' %}"
+      ><button class="btn btn-neutral">LOGIN</button></a
+    >
     {% endif %}
   </div>
 </nav>

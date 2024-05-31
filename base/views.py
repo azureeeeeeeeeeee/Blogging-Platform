@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from .forms import NewsForm
+from django.contrib import messages
 
 # Create your views here.
 def loginPage(request):
@@ -23,8 +24,29 @@ def loginPage(request):
 
 
 def registerPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username').lower()
+        password = request.POST.get('password')
+        password2 = request.POST.get('password2')
+
+        if password != password2:
+            messages.erro(request, 'Password do not match')
+        else:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already exists')
+            else:
+                user = User.objects.create_user(username=username, password=password)
+                user.save()
+
+                login(request, user)
+                messages.success(request, 'Registration successful')
+                return redirect('home')
     return render(request, 'base/register.html')
 
+
+def logoutPage(request):
+    logout(request)
+    return redirect('home')
 
 
 def home(request):
