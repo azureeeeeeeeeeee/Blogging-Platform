@@ -1,0 +1,13 @@
+{% extends 'index.html' %} {% block content %}
+<main class="p-12">
+  <h1 class="text-4xl">{{news.title}}</h1>
+  <p class="text-xs">
+    <strong>{{news.user}}</strong> | Selasa, 30 April 2025 20:58 WIB
+  </p>
+  <figure class="mt-8">
+    <img src="{{news.thumbnail.url}}" class="object-cover size-64" />
+    <figcaption>Caption Foto</figcaption>
+  </figure>
+  <div class="news-component flex flex-col gap-4 mt-8">{{news.body|safe}}</div>
+</main>
+{% endblock %}

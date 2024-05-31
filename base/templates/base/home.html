@@ -1,0 +1,13 @@
+{% extends 'index.html' %} {% block content %}
+
+<main class="grid grid-cols-[2fr_4fr] gap-4 p-6">
+  <!-- Topic Start -->
+  {% include 'base/topic_component.html' %}
+  <!--Topic Ends  -->
+
+  <!-- News Start -->
+  {% include 'base/news_component.html' %}
+  <!-- News Ends -->
+</main>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% include 'index.html' %} {% block content %}
+
+<main>
+  <form
+    action=""
+    method="POST"
+    enctype="multipart/form-data"
+    class="flex flex-col gap-6 items-center mt-8 mb-8"
+  >
+    {% csrf_token %}
+    <div class="text-center">
+        <label for="">Masukkan Judul Berita</label>
+        <textarea
+          placeholder="Judul Berita"
+          class="textarea textarea-bordered textarea-lg w-full max-w-xs text-base"
+          name="title"
+          required
+        ></textarea>
+    </div>
+    </div>
+    <div class="text-center">
+      <label for="" class="+">Masukkan Thumbnail</label>
+      <input
+        type="file"
+        class="file-input file-input-bordered w-full max-w-xs"
+        name="thumbnail"
+        required
+      />
+    </div>
+    <div class="text-center">
+      <label for="">Masukkan Descripsi Berita</label>
+      <textarea
+        placeholder="Deskripsi Berita"
+        class="textarea textarea-bordered textarea-lg w-full max-w-xs text-base"
+        name="desc"
+        required
+      ></textarea>
+    </div>
+    <div class="text-center py-16">
+      <label for="">Masukkan Konten Berita</label>
+      {{form.media}} {{form.as_p}}
+    </div>
+    <input class="btn btn-neutral" type="submit" value="SIMPAN BERITA" />
+  </form>
+</main>
+
+{% endblock %}
