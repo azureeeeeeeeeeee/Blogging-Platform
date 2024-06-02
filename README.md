@@ -6,6 +6,6 @@
 <p>And download all dependencies using</p>
 <p><code>pip install -r requirements.txt</code></p>
 <h2>Tech Stack</h2>
-<p>Front End : <code>Tailwind CSS</code></p>
+<p>Front End : <code>Tailwind CSS</code> & <code>Daisy UI</code></p>
 <p>Back End : <code>Django</code></p>
 <p>Database : <code>SQLite</code></p>
