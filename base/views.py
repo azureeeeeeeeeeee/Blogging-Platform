@@ -55,8 +55,12 @@ def logoutPage(request):
 
 
 def home(request):
+    q = request.GET.get('q', '')
     news = News.objects.all()
-    context = {'news': news}
+    news = news.filter(Q(title__icontains=q) | 
+                        Q(description__icontains=q))
+    topics = Topics.objects.all()
+    context = {'news': news, 'topics': topics}
 
     return render(request, 'base/home.html', context)
 
