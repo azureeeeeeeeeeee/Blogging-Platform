@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .models import News
+from .models import News, Topics, UserProfile
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
@@ -30,13 +31,17 @@ def registerPage(request):
         password2 = request.POST.get('password2')
 
         if password != password2:
-            messages.erro(request, 'Password do not match')
+            messages.error(request, 'Password do not match')
         else:
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'Username already exists')
             else:
                 user = User.objects.create_user(username=username, password=password)
                 user.save()
+
+                UserProfile.objects.create(
+                    user=user
+                )
 
                 login(request, user)
                 messages.success(request, 'Registration successful')
@@ -82,3 +87,25 @@ def addNews(request):
         
     context = {'form': form}
     return render(request, 'base/form_berita.html', context)
+
+
+def profile(request, pk):
+    user = User.objects.get(id=pk)
+    news = user.news_set.all()
+    context = {'user': user, 'news':news}
+    return render(request, 'base/profile.html', context)
+
+
+def updateProfile(request):
+    user = UserProfile.objects.get(id=request.user.id)
+    print(user.nama_lengkap)
+    print(user.bio)
+    if request.method == 'POST':
+        user.nama_lengkap = request.POST.get('full-name').title()
+        user.bio = request.POST.get('user-bio')
+        user.save()
+
+        return redirect('home')
+
+    context= {'user':user}
+    return render(request, 'base/form_user.html', context)

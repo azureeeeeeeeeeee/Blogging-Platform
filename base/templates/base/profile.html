@@ -1,0 +1,43 @@
+{% extends 'index.html' %} {% block content %}
+
+    <main class="flex flex-col gap-4 mt-8"></main>
+      <div class="text-justify px-16">
+        <img
+          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+          alt=""
+          class="rounded-full h-40 w-40 self-center m-auto"
+        />
+        <h1 class="text-xl"><strong>{{user.userprofile.nama_lengkap}}</strong> | @{{user.username}}</h1>
+        <p>
+          {{user.userprofile.bio}}
+        </p>
+        {% if request.user.id == user.id %}
+        <a href="{% url 'update-profile' %}"><button class="btn btn-active btn-neutral mt-4">Edit Profile</button></a>
+        {% endif %}
+      </div>
+
+      <div class="px-16 mt-8">
+        <div class="flex flex-col gap-4">
+          <h1>Berita yang ditulis <strong>{{user.username}}</strong></h1>
+          {% for berita in news %}
+          <div class="news-piece flex gap-2 rounded-xl bg-slate-800">
+            <figure class="size-32">
+              <img
+                src="{{berita.thumbnail.url}}"
+                class="rounded-xl object-cover size-32"
+              />
+            </figure>
+            <div class="p-2">
+              <h1 class="text-xl">{{berita.title}}</h1>
+              <p class="mt-2"><strong>{{berita.user.username}}</strong> | {{created}}</p>
+              <p>
+                {{berita.description}}
+              </p>
+              <p class="badge badge-neutral">Politik</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </main>
+{% endblock %}

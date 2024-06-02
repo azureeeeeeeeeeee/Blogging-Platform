@@ -2,7 +2,10 @@
 <main class="p-12">
   <h1 class="text-4xl">{{news.title}}</h1>
   <p class="text-xs">
-    <strong>{{news.user}}</strong> | Selasa, 30 April 2025 20:58 WIB
+    <a href="{% url 'profile' news.user.id %}"
+      ><strong>{{news.user.userprofile.nama_lengkap}}</strong></a
+    >
+    | Selasa, 30 April 2025 20:58 WIB
   </p>
   <figure class="mt-8">
     <img src="{{news.thumbnail.url}}" class="object-cover size-64" />

@@ -1,0 +1,38 @@
+{% include 'index.html' %} {% block content %}
+<main>
+  <form action="" method="POST" class="flex flex-col gap-6 items-center mt-8">
+    {% csrf_token %}
+    <div class="text-center">
+      <label for="" class="">Masukkan Foto Profile</label>
+      <input
+        type="file"
+        class="file-input file-input-bordered w-full max-w-xs"
+        name="profile-picture"
+        value=""
+      />
+    </div>
+    <div class="text-center">
+      <label for="">Masukkan Nama Lengkap</label>
+      <input
+        type="text"
+        placeholder="Type here"
+        class="input input-bordered w-full max-w-xs"
+        name="full-name"
+        value="{{user.nama_lengkap}}"
+      />
+    </div>
+    <div class="text-center">
+      <label for="">Masukkan Bio</label>
+      <textarea
+        placeholder="Bio Profile"
+        class="textarea textarea-bordered textarea-lg w-full max-w-xs text-base"
+        name="user-bio"
+        required
+      >
+{{user.bio}}</textarea
+      >
+    </div>
+    <input class="btn btn-neutral" type="submit" value="SIMPAN PROFILE" />
+  </form>
+</main>
+{% endblock %}

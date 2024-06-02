@@ -13,4 +13,20 @@ class News(models.Model):
     thumbnail = models.ImageField(upload_to="images/")
 
     def __sts__(self):
-        return self.title or "Untitled News"
+        return self.title + ' | ' + str(self.user)
+    
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    nama_lengkap = models.CharField(null=True, max_length=100)
+    bio = models.TextField(null=True)
+
+    def __str__(self):
+        return str(self.user)
+
+
+class Topics(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(self.name)
