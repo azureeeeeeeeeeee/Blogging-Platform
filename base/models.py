@@ -4,10 +4,17 @@ from django.utils import timezone
 from ckeditor.fields import RichTextField
 
 # Create your models here.
+class Topics(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(self.name)
+
 class News(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=60)
     description = models.CharField(max_length=100, blank=True)
+    topic = models.ForeignKey(Topics, on_delete=models.SET_NULL, null=True)
     body = RichTextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     thumbnail = models.ImageField(upload_to="images/")
@@ -23,10 +30,3 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return str(self.user)
-
-
-class Topics(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return str(self.name)

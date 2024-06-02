@@ -36,6 +36,15 @@
         required
       ></textarea>
     </div>
+
+    <!-- <datalist id="topic-list"> -->
+    <select name="topic" id="room_topic" class="select select-bordered w-full max-w-xs">
+        {% for topic in topics %}
+        <option value="{{topic.name}}">{{topic.name}}</option>
+        {% endfor %}
+    </select>
+    <!-- </datalist> -->
+
     <div class="text-center py-16">
       <label for="">Masukkan Konten Berita</label>
       {{form.media}} {{form.as_p}}

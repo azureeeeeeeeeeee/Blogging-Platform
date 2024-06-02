@@ -71,21 +71,28 @@ def readNews(request, pk):
 @login_required(login_url='/login')
 def addNews(request):
     form = NewsForm()
+    topics = Topics.objects.all()
     if request.method == 'POST':
         form = NewsForm(request.POST, request.FILES)
         if form.is_valid():
             news = form.save(commit=False)
+
+            topic_name = request.POST.get('topic')
+            topic, created = Topics.objects.get_or_create(name=topic_name)
+
             news.user = request.user
             news.thumbnail = request.FILES.get('thumbnail')
             news.description = request.POST.get('desc')
             news.title = request.POST.get('title')
+            news.topic = topic
+            
             news.save()
 
             return redirect('home')
         else:
             form = NewsForm()
         
-    context = {'form': form}
+    context = {'form': form, 'topics': topics}
     return render(request, 'base/form_berita.html', context)
 
 
